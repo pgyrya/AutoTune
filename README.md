@@ -32,6 +32,6 @@ The following is the list of changes I expect to be useful:
 *	Allow option to modify more than one [promising] parameter per step, to accelerate learning;
 If so, consider to make parameter scale adjustment smaller for those parameters where changes make model worse
 *	Work with model / pipeline objects to make results reproducible
-* Consider to pptimize each hyperparameter taken via a small grid instead of taking sample step in a random direction
+* Consider to optimize each hyperparameter taken via a small grid instead of taking sample step in a random direction
 
 As we can imagine many more functionality could be useful, the intention is for this project to evolve over time to be useful for a larger audience - please reach out if you have any suggestions to changes, or would like to collaborate on one of the changes suggested below.

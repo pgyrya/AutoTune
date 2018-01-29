@@ -10,6 +10,16 @@ However as modelers, we are typically challenged with the task of finding optima
 
 Building on how we as modelers would typically navigate this hyperparameter space, this library is intending to facilitate tuning process, allowing computer to iterate in a step-by-step fashion through hundreds of iterations, and allow modelers to analyze and learn from the testing results instead of spending time on triggering multiple tests manually.
 
+## Sample output
+Here is a sample Excel output formatted in Excel, including imrovement of model performance ($R^2$) and fitting time.
+Note linking Excel spreadsheet to data source could allow you to refresh chart with one click.
+
+![Sample Output](sample_output/sample.jpg)
+
+Here you can see that that model keeps imroving, taking random incremental steps to achieve 99.6% accuracy navigating parameter space by modifying one parameter at a time. No steps after iteration 299 led to score imrovement above threshold. These steps could also be reviewed in Excel output directly. 
+
+For example, the algorithm tried to extend network architecture by adding additional layers, which did not help imrove performance.
+
 ## Future changes 
 The following is the list of changes I expect to be useful:
 

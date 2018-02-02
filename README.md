@@ -20,18 +20,23 @@ Here you can see that that model keeps imroving, taking random incremental steps
 
 For example, the algorithm tried to extend network architecture by adding additional layers, which did not help imrove performance.
 
-## Future changes 
-The following is the list of changes I expect to be useful:
+## Recent changes
 
-*	Reject model if average fitting time is above threshold, even if model is improving materially
-*	Add random parameter/direction selection bias towards what already worked, away from what did not work – depending on model performance score changes
-*	Adding preference to models with smaller calibration time, even if performance is similar
-*	Capture information of which parameters were modified at each step into calibration history
-*	Allow subsequent runs to extend dictionary with new parameters being tuned
-*	Allow to adjust new node size in the list via string parameter (min, max, avg, uniform, adj_min, etc.)
-*	Allow option to modify more than one [promising] parameter per step, to accelerate learning;
-If so, consider to make parameter scale adjustment smaller for those parameters where changes make model worse
-*	Work with model / pipeline objects to make results reproducible
+Feb 1, 2018
+*	Gave an option to reject the model if average fitting time is above threshold, even if model is improving materially - parameters of such models could be reviewed manually
+*	Captured information of which parameters were modified at each step into calibration history
+* Allowed string valued hyperparameters, updates to which are governed by param_options_str
+* Allowed steps along multiple dimensions, controlled via step_number_vars - this could help accelerate search
+* Ensured pseudo-randomization of each step by relying on numpy package functionality, seeded with fraction of system time (share of milliseconds). This should not conflict with model randomization if random state is provided as hyperparameter to the model class during initialization, and later used to re-set corresponding package parameters (e.g. numpy, random, tensorflow) - from within call to model fit procedure
+* Facilitated inheritance of results from previous object by offering  
+
+## Future changes considered
+The following is the list of changes I expect to be useful:
+*	Consider to add random parameter/direction selection bias towards what already worked, away from what did not work – depending on model performance score changes - this is facilitated by accumulated calibrated results database
+*	Consider to add preference to models with smaller calibration time, even if performance is similar
+*	Consider to allow subsequent runs to extend dictionary with new parameters being tuned
+*	Consider to adjust new node size in the list via string parameter (min, max, avg, uniform, adj_min, etc.)
+* Consider to make parameter scale adjustment smaller for those parameters where changes make model worse
 * Consider to optimize each hyperparameter taken via a small grid instead of taking sample step in a random direction
 
-As we can imagine many more functionality could be useful, the intention is for this project to evolve over time to be useful for a larger audience - please reach out if you have any suggestions to changes, or would like to collaborate on one of the changes suggested below.
+As we can imagine many more functionality could be useful, the intention is for this project to evolve over time to be useful for a larger audience - please reach out if you have any suggestions to changes, or would like to collaborate on one of the changes suggested above, or would really wish for it to be implemented soon.

@@ -60,6 +60,7 @@ class StepSearchCV():
         self.results           = None        
         self.best_score        = prior_best_score
         self.parameters_best   = parameters_start
+        
         self.step_rules        = step_rules
         self.steps_requested   = steps
         self.step_veto_rule    = step_veto_rule
@@ -78,14 +79,18 @@ class StepSearchCV():
         self.searcher                      = None
         self.last_step_parameters_adjusted = "Picked original parameters"
 
-            
         if prior_results is not None:
-            if type(prior_results) is StepSearchCV:
-                # inherit prior results from the object provided
+            print('Analyzing prior results provided..')
+            if hasattr(prior_results,'parameters_best'):
+                print('Copying prior results from StepSearchCV object provided')
+                # assuming the object provided is of class StepSearchCV and 
+                # inherit prior results from the search object provided
                 self.best_score    = prior_results.best_score
-                self.results       = prior_results.results
+                self.results       = copy.deepcopy(prior_results.results)
+                if self.parameters_best is None: self.parameters_best = copy.deepcopy(prior_results.parameters_best)
             else:
-                self.results = copy.deepcopy(prior_results)
+                print('Copying prior calibration results from dictionary provided')
+                self.results       = copy.deepcopy(prior_results)
                 
             if delete_prior == True:
                 del prior_results

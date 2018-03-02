@@ -2,12 +2,15 @@
 This is an early stage of a Python implementation of randomized automatic tuning process for model hyper-parameters, intended as a practical support to faciliate typical time-consuming tasks done by modelers to arrive at a model that best describes input data and can generalize well. 
 
 It is inspired by Scikit-Learn GridSearchCV functinoality. 
-The intention for this project is to evolve to provide meaningful support to modelers, by combining perspectives of users - who would test current process, suggest ideas and modifications, review and brainstorm suggestions - and contribute to implementation incrementally.
+
+While some level of intelligence has already been captured (step-by-step search similar to gradient descend, preference for steps anticipated to be promising), I strongly believe that the details matter, and the intention for this project is to evolve to reliably provide meaningful support to modelers, by combining perspectives of users - who would test current process, suggest ideas and modifications, review and brainstorm suggestions - and contribute to implementation incrementally.
 
 ## Background
 Currently Scikit-Learn offers two implementation of hyperparameter optimizations - GridSearch, which goes over the entire grid provided, and Randomized Search, which randomly samples each parameter.
 
 However as modelers, we are typically challenged with the task of finding optimal settings, that would lead to greatest model power - among a large multi-dimensional space of hyperparameters, making these search approaches somewhat slow in practice.
+
+Typical example of hyper-parameters to think about is - regularization parameters, which could help the model learn better by giving preference to models of lower complexity, which then generalize better to unseen data, reducing over-fitting. More generally, hyperparameters could be any inputs of a model design and calibration process, including hyper-parameters that may be provided as boolean, integer, float, string or list/tuple.
 
 Building on how we as modelers would typically navigate this hyperparameter space, this library is intending to facilitate tuning process, allowing computer to iterate in a step-by-step fashion through hundreds of iterations, and allow modelers to analyze and learn from the testing results instead of spending time on triggering multiple tests manually. 
 
@@ -41,12 +44,17 @@ February, 2018
 ## Future changes considered
 The following is the list of changes I expect to be useful:
 *	Consider to allow subsequent runs to extend results dictionary with new parameters being tuned (assume to be constant for prior runs)
-*	Consider to allow removing nodes from lists, and/or add randomness to the new node size
+*	Consider to allow removing nodes from lists (thus reducing model complexity), and/or add randomness to the new node size
 * Consider to make parameter scale adjustment smaller for those parameters where changes make model worse
 * Consider to modify anticipator models to predict changes (instead of predicting levels) in performance and fit time, based on changes in vectorized parameters
 * Explore ways to adjust batch size for keras over time, helping accelerating training for later epochs
 * Prominently save sensitivity analysis - i.e. information of variables, changes in which lead to significant changes in model performance or fitting time
 * Consider to adjust anticipator models to either discount-weight early observations, or focus on neighboring points when coming up with reliable linear dependency - note we may want to leverage variables with significant sensitivity when defining distance metric
 * Consider valid domain of numeric hyperparameters (currently assumed to be infinite and same-sign)
+* Consider to fine-tune step size – e.g. decrease tuning steps over time, as convergence improves 
+* Consider to terminate tuning when no more improvement is possible / likely
+* Consider to add list size as a parameter in vectorization for anticipating models
+* Consider to allow testing on sub-sample of k-fold validation set (e.g. 5th and 10th, 15th and 20th sample of 20-fold)
+
 
 As we can imagine many much functionality could be useful, the intention is for this project to evolve over time to be useful for a larger audience - please reach out if you have any suggestions to changes, would like to collaborate on one of the changes suggested above, or would really wish for some of them to be implemented soon.

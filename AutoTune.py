@@ -98,7 +98,7 @@ class StepSearchCV():
         self.extending_lists     = extending_lists
         self.step_number_vars    = step_number_vars
         self.param_options_str   = param_options_str
-        self.max_fit_time        = max_fit_time
+        self.max_fit_time        = max_fit_time or math.inf
         self.explore_rt_init     = explore_rt_init
         self.explore_rt_decay    = explore_rt_decay
         self.explore_rt_min      = explore_rt_min

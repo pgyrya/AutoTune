@@ -257,7 +257,7 @@ class StepSearchCV():
         # Might want to consider also returning parameter changed, index and direction
         return parameters_best_anticipated, best_anticipated_adjustment, score_improvement_anticipated_best  
     
-    def fit(self, X, y=None, groups=None, export_improvements_only = False, steps = None, test_starting_parameters = True, **fit_params):
+    def fit(self, X, y, groups=None, export_improvements_only = False, steps = None, test_starting_parameters = True, **fit_params):
         # TODO overwrite steps completed variable
         if steps is not None and type(steps) is int: self.steps_requested = steps + self.step
         
@@ -292,7 +292,7 @@ class StepSearchCV():
                 refit              = self.refit)
             
             try:
-                self.searcher.fit(X, y, groups, **fit_params)
+                self.searcher.fit(X, y, groups=groups, **fit_params)
                 self.save_best_result(
                         parameters_under_review, 
                         self.searcher.cv_results_, 
